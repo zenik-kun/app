@@ -19,16 +19,19 @@ const SignUp = () => {
   const submit = async () => {
     if (!form.username || !form.email || !form.password) {
       Alert.alert('Error', 'Please fill in all the fields')
+      return;
     }
 
     setIsSubmitting(true);
 
     try {
       const result = await createUser(form.email, form.password, form.username);
-      // set it to global state...
+      setUser(result);
+      setIsLoggedIn(true);
+
       router.replace('/home')
     } catch (error) {
-      Alert.alert('Error', error.message)
+      Alert.alert('Error', error.message);
     } finally {
       setIsSubmitting(false)
     }
