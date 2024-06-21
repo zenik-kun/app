@@ -6,36 +6,35 @@ import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
 import { createUser } from '../../lib/appwrite'
+import { useGlobalContext } from '../../context/GlobalProvider'
 
 const SignUp = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
+  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
-    username: '',
-    email: '',
-    password: ''
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const submit = async () => {
-    if (!form.username || !form.email || !form.password) {
-      Alert.alert('Error', 'Please fill in all the fields')
-      return;
+    if (form.username === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
     }
 
-    setIsSubmitting(true);
-
+    setSubmitting(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
       setUser(result);
-      setIsLoggedIn(true);
+      setIsLogged(true);
 
-      router.replace('/home')
+      router.replace("/home");
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Alert.alert("Error", error.message);
     } finally {
-      setIsSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
