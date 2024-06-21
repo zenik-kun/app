@@ -13,7 +13,7 @@ const SignIn = () => {
     password: ''
   })
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = async () => {
     if (!form.email || !form.password) {

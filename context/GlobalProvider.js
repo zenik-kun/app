@@ -24,7 +24,6 @@ const GlobalProvider = ({ children }) => {
             })
             .finally(() => {
                 setIsLoading(false)
-
             })
     }, []);
 
